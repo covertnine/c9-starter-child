@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 if ( ! function_exists( 'c9child_enqueue_styles' ) ) {
 	// Add enqueue function to the desired action.
-	add_action( 'wp_enqueue_scripts', 'c9child_enqueue_styles' );
+	add_action( 'wp_enqueue_scripts', 'c9child_enqueue_styles', 110 );
 	/**
 	 * Enqueue Styles.
 	 *
