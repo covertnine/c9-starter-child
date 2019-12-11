@@ -29,7 +29,7 @@ if ( ! function_exists( 'c9child_enqueue_styles' ) ) {
 		wp_enqueue_style( $parent_style, get_template_directory_uri() . '/assets/dist/css/theme.min.css' );
 		// Enqueue Child theme's stylesheet.
 		// Setting 'parent-style' as a dependency will ensure that the child theme stylesheet loads after it.
-		wp_enqueue_style( 'child-style', get_stylesheet_directory_uri() . '/style.css', array( $parent_style ) );
+		wp_enqueue_style( 'c9-child-style', get_stylesheet_directory_uri() . '/style.css', array( $parent_style ) );
 	}
 }
 
@@ -43,5 +43,13 @@ if ( ! function_exists( 'c9child_enqueue_scripts' ) ) {
 	 */
 	function c9child_enqueue_scripts() {
 		wp_enqueue_script( 'child-script', get_stylesheet_directory_uri() . '/main.js' );
+	}
+}
+
+if ( ! function_exists( 'c9child_enqueue_editor_styles' ) ) {
+	add_action( 'enqueue_block_editor_assets', 'c9child_enqueue_editor_styles', 999999999);
+
+	function c9child_enqueue_editor_styles() {
+		wp_enqueue_style( 'c9-child-style', get_stylesheet_directory_uri() . '/style.css', array('c9-client-styles') );
 	}
 }
