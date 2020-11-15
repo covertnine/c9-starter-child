@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Child theme functions
  *
@@ -8,12 +9,12 @@
  * @package c9child
  */
 // Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
-if ( ! function_exists( 'c9child_enqueue_styles' ) ) {
+if (!function_exists('c9child_enqueue_styles')) {
 	// Add enqueue function to the desired action.
-	add_action( 'wp_enqueue_scripts', 'c9child_enqueue_styles', 110 );
+	add_action('wp_enqueue_scripts', 'c9child_enqueue_styles', 110);
 	/**
 	 * Enqueue Styles.
 	 *
@@ -22,34 +23,39 @@ if ( ! function_exists( 'c9child_enqueue_styles' ) ) {
 	 *
 	 * @since 1.0.0
 	 */
-	function c9child_enqueue_styles() {
+	function c9child_enqueue_styles()
+	{
 		// Parent style variable.
 		$parent_style = 'c9-styles';
 		// Enqueue Parent theme's stylesheet.
-		wp_enqueue_style( $parent_style, get_template_directory_uri() . '/assets/dist/css/theme.min.css' );
+		wp_enqueue_style($parent_style, get_template_directory_uri() . '/assets/dist/css/theme.min.css');
 		// Enqueue Child theme's stylesheet.
 		// Setting 'parent-style' as a dependency will ensure that the child theme stylesheet loads after it.
-		wp_enqueue_style( 'c9-child-style', get_stylesheet_directory_uri() . '/style.css', array( $parent_style ) );
+		wp_enqueue_style('c9-child-style', get_stylesheet_directory_uri() . '/style.css', array($parent_style));
 	}
 }
 
-if ( ! function_exists( 'c9child_enqueue_scripts' ) ) {
-	add_action( 'wp_enqueue_scripts', 'c9child_enqueue_scripts' );
+if (!function_exists('c9child_enqueue_scripts')) {
+	add_action('wp_enqueue_scripts', 'c9child_enqueue_scripts');
 
 	/**
 	 * Enqueue Main.js Script
 	 *
 	 * @return void
 	 */
-	function c9child_enqueue_scripts() {
-		wp_enqueue_script( 'child-script', get_stylesheet_directory_uri() . '/main.js' );
+	function c9child_enqueue_scripts()
+	{
+		wp_enqueue_script('c9child-script', get_stylesheet_directory_uri() . '/main.js');
 	}
 }
 
-if ( ! function_exists( 'c9child_enqueue_editor_styles' ) ) {
-	add_action( 'enqueue_block_editor_assets', 'c9child_enqueue_editor_styles', 999999999);
+if (!function_exists('c9child_enqueue_editor_styles')) {
+	add_action('enqueue_block_editor_assets', 'c9child_enqueue_editor_styles', 999999999);
 
-	function c9child_enqueue_editor_styles() {
-		wp_enqueue_style( 'c9-child-style', get_stylesheet_directory_uri() . '/style.css', array('c9-client-styles') );
+	function c9child_enqueue_editor_styles()
+	{
+		wp_dequeue_style('c9-editor-style');
+		wp_enqueue_style('c9child-style', get_stylesheet_directory_uri() . '/style.css', array('c9-client-styles'));
+		wp_enqueue_style('c9child-client-editor-style', get_stylesheet_directory_uri() . '/editor-style.css', array('c9-client-styles'));
 	}
 }
